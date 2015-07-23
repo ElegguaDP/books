@@ -51,7 +51,8 @@ $this->title = Yii::t('app', 'Книги');
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                
+                'header'=>  Yii::t('app', 'Кнопки действия'), 
+                'template'=>'{update} {view} {delete}',
             ],
         ]
     ]);

@@ -48,11 +48,11 @@ class BookController extends Controller {
      * Lists all Book models.
      * @return mixed
      */
-    public function actionIndex() {        
+    public function actionIndex() {
         $dataProvider = new ActiveDataProvider([
             'query' => Book::find()->with('author')
         ]);
-        
+
         return $this->render('index', [
                     'dataProvider' => $dataProvider
         ]);
@@ -83,11 +83,12 @@ class BookController extends Controller {
         foreach ($authorData as $author) {
             $authorsList[$author->id] = $author->firstname . ' ' . $author->lastname;
         }
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {                        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if ($model->preview = UploadedFile::getInstance($model, 'preview')) {
                 $path = Yii::$app->basePath . Yii::$app->params['uploadPath'] . $model->preview;
                 $model->preview->saveAs($path);
-                $model->preview = Yii::$app->params['uploadPath'] . $model->preview;;
+                $model->preview = Yii::$app->params['uploadPath'] . $model->preview;
+                ;
             }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
@@ -113,9 +114,14 @@ class BookController extends Controller {
         $authorsList = [];
         foreach ($authorData as $author) {
             $authorsList[$author->id] = $author->firstname . ' ' . $author->lastname;
-        }        
+        }
+        $currentImage = $model->preview;
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->preview = UploadedFile::getInstance($model, 'preview')) {
+            if (UploadedFile::getInstance($model, 'preview')) {
+                if ($currentImage) {
+                    unlink(Yii::$app->basePath . $currentImage);
+                }
+                $model->preview = UploadedFile::getInstance($model, 'preview');
                 $path = Yii::$app->basePath . Yii::$app->params['uploadPath'] . $model->preview;
                 $model->preview->saveAs($path);
                 $model->preview = Yii::$app->params['uploadPath'] . $model->preview;
