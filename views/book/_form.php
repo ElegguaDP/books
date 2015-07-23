@@ -16,8 +16,10 @@ use yii\helpers\Url;
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-    <p><?php echo(Yii::t('app', 'Текущее изображение'));?></p>
-    <img src="/books/<?php echo $model->preview?>" alt="" style="width:200px;">
+    <?php if ($model->preview) { ?>
+        <p><?php echo(Yii::t('app', 'Текущее изображение')); ?></p>   
+        <img src="/books/<?php echo $model->preview; ?>" alt="" style="width:200px;">
+    <?php } ?>
     <?=
     $form->field($model, 'preview')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*'],
