@@ -29,7 +29,7 @@ $this->title = Yii::t('app', 'Книги');
                 'format' => 'raw',
                 'value' => function ($dataProvider) {
                     if ($dataProvider->preview) {
-                        return Html::img('/books'.$dataProvider->preview, ['style' => 'width:100px;']);
+                        return Html::img('/books'.$dataProvider->preview, ['id' => $dataProvider->id,'class' => 'preview-book', 'onclick' => 'changeSizeImage(this)']);
                     } else {
                         return $dataProvider->preview;
                     }
@@ -58,3 +58,4 @@ $this->title = Yii::t('app', 'Книги');
     ]);
     ?>
 </div>
+<?php $this->registerJsFile(Url::base() .'/js/preview.js', ['depends' => [\yii\web\JqueryAsset::className()]]); ?>
