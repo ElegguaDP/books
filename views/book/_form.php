@@ -18,7 +18,7 @@ use yii\helpers\Url;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
     <?php if ($model->preview) { ?>
         <p><?php echo(Yii::t('app', 'Текущее изображение')); ?></p>   
-        <img src="/books/<?php echo $model->preview; ?>" alt="" style="width:200px;">
+        <img src="/books/<?php echo $model->preview; ?>" style="width:200px;">
     <?php } ?>
     <?=
     $form->field($model, 'preview')->widget(FileInput::classname(), [

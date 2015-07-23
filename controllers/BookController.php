@@ -117,14 +117,16 @@ class BookController extends Controller {
         }
         $currentImage = $model->preview;
         if ($model->load(Yii::$app->request->post())) {
-            if (UploadedFile::getInstance($model, 'preview')) {
+            if ($model->preview = UploadedFile::getInstance($model, 'preview')) {
                 if ($currentImage) {
                     unlink(Yii::$app->basePath . $currentImage);
                 }
-                $model->preview = UploadedFile::getInstance($model, 'preview');
                 $path = Yii::$app->basePath . Yii::$app->params['uploadPath'] . $model->preview;
                 $model->preview->saveAs($path);
                 $model->preview = Yii::$app->params['uploadPath'] . $model->preview;
+            }
+            if (!$model->preview) {
+                $model->preview = $currentImage;
             }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
