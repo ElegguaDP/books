@@ -41,7 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'date_update',
                 'format' => ['date', 'php:d M yy H:i:s']
             ],
-            'preview',
+            [
+                'label' => Yii::t('app', 'Превью'),
+                'format' => 'raw',
+                'value' => $model->preview ? Html::img('/books'.$model->preview, ['style' => 'width:200px;']) : $model->preview
+            ],
             [
                 'attribute' => 'date',
                 'format' => ['date', 'php:d M yy']

@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\jui\DatePicker;
+use kartik\file\FileInput;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Book */
@@ -11,11 +13,20 @@ use yii\jui\DatePicker;
 
 <div class="book-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'preview')->textInput(['maxlength' => true]) ?>
+    <?=
+    $form->field($model, 'preview')->widget(FileInput::classname(), [
+        'options' => ['accept' => 'image/*'],
+        'pluginOptions' => [
+            'previewFileType' => 'image',
+            'showUpload' => false,
+            'allowedFileExtensions' => ['jpg', 'gif', 'png'],
+        ]
+    ])
+    ?>
 
     <?=
     $form->field($model, 'date')->widget(DatePicker::className(), [
@@ -24,17 +35,17 @@ use yii\jui\DatePicker;
         'clientOptions' => [
             'changeMonth' => true,
             'yearRange' => '1900:2099',
-            'changeYear' => true            
+            'changeYear' => true
         ],
     ])
     ?>
 
-<?= $form->field($model, 'author_id')->dropDownList($authors)->label(Yii::t('app', 'Автор')) ?>
+    <?= $form->field($model, 'author_id')->dropDownList($authors)->label(Yii::t('app', 'Автор')) ?>
 
     <div class="form-group">
-<?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Добавить') : Yii::t('app', 'Обновить'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Добавить') : Yii::t('app', 'Обновить'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 </div>

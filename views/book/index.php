@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -23,7 +24,17 @@ $this->title = Yii::t('app', 'Книги');
             ['class' => 'yii\grid\SerialColumn'],
             'id',
             'name',
-            'preview',
+            [
+                'label' => Yii::t('app', 'Превью'),
+                'format' => 'raw',
+                'value' => function ($dataProvider) {
+                    if ($dataProvider->preview) {
+                        return Html::img('/books'.$dataProvider->preview, ['style' => 'width:100px;']);
+                    } else {
+                        return $dataProvider->preview;
+                    }
+                }
+            ],
             [
                 'label' => Yii::t('app', 'Автор'),
                 'value' => function ($dataProvider) {
@@ -34,7 +45,10 @@ $this->title = Yii::t('app', 'Книги');
                 'attribute' => 'date',
                 'format' => ['date', 'php:d M yy']
             ],
-            'date_create',
+            [
+                'attribute' => 'date_create',
+                'format' => ['date', 'php:d M yy']
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 
