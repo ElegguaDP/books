@@ -1,4 +1,4 @@
-function init_click_handlers() {
+function init_click_handler_view() {
     $('.activity-view-link').click(function () {
         $.get(
                 'index.php?r=book/view',
@@ -15,7 +15,7 @@ function init_click_handlers() {
 }
 ;
 
-init_click_handlers();
+init_click_handler_view();
 $("#ViewId").on("pjax:success", function () {
-    init_click_handlers();
+    init_click_handler_view();
 });

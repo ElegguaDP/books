@@ -139,7 +139,7 @@ class BookController extends Controller {
                 $model->preview = $currentImage;
             }
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            return '<script>window.close();</script>';
         } else {
             return $this->render('update', [
                         'model' => $model,

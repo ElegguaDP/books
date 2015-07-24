@@ -67,6 +67,13 @@ $this->title = Yii::t('app', 'Книги');
                             'data-pjax' => '0'
                         ]);
                     },
+                    'update' => function ($url) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>',$url, [
+                            'title' => Yii::t('yii', 'Редактировать'),                            
+                            'data-pjax' => '0',
+                            'target' => '_blank'
+                        ]);
+                    }
                 ],
             ],
         ]

@@ -13,7 +13,7 @@ use yii\helpers\Url;
 
 <div class="book-form">
 
-    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
+    <?php $form = ActiveForm::begin(['id' => 'form', 'options' => ['enctype' => 'multipart/form-data']]) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
     <?php if ($model->preview) { ?>
@@ -50,5 +50,4 @@ use yii\helpers\Url;
     </div>
 
     <?php ActiveForm::end(); ?>
-
 </div>
