@@ -6,7 +6,6 @@ use yii\helpers\Html;
 /* @var $model app\models\Book */
 
 $this->title = Yii::t('app', 'Добавить книгу');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Книги'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-create">

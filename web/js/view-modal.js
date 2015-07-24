@@ -10,3 +10,8 @@ $('.activity-view-link').click(function() {
         }  
     );
 });
+
+init_click_handlers(); //first run
+$().on("pjax:success", function() {
+  init_click_handlers(); //reactivate links in grid after pjax update
+});

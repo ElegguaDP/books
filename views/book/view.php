@@ -7,7 +7,6 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Book */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Книги'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-view">

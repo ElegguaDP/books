@@ -60,11 +60,11 @@ $this->title = Yii::t('app', 'Книги');
                     'view' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>','#', [
                             'class' => 'activity-view-link',
-                            'title' => Yii::t('yii', 'View'),
+                            'title' => Yii::t('yii', 'Просмотр'),
                             'data-toggle' => 'modal',
                             'data-target' => '#activity-modal',
                             'data-id' => $key,
-                            'data-pjax' => '0',
+                            'data-pjax' => 'w0',
 
                         ]);
                     },
@@ -79,14 +79,12 @@ $this->title = Yii::t('app', 'Книги');
 <?php Modal::begin([
     'id' => 'activity-modal',
     'header' => '<h4 class="modal-title">Просмотр</h4>',
-    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
-
+    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>'
 ]); ?>
 
 <div class="well">
 
 </div>
-
 
 <?php Modal::end(); ?>
 

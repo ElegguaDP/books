@@ -8,7 +8,6 @@ use yii\helpers\Html;
 $this->title = Yii::t('app', 'Редактировать книгу ', [
             'modelClass' => 'Book',
         ]) . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Книги'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Редактировать');
 ?>
