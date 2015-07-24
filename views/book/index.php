@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -54,11 +55,39 @@ $this->title = Yii::t('app', 'Книги');
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>  Yii::t('app', 'Кнопки действия'), 
-                'template'=>'{update} {view} {delete}'
+                'template'=>'{update} {view} {delete}',
+                'buttons' => [
+                    'view' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>','#', [
+                            'class' => 'activity-view-link',
+                            'title' => Yii::t('yii', 'View'),
+                            'data-toggle' => 'modal',
+                            'data-target' => '#activity-modal',
+                            'data-id' => $key,
+                            'data-pjax' => '0',
+
+                        ]);
+                    },
+                ],
             ],
         ]
     ]);
     ?>
     <?php  Pjax::end(); ?>
 </div>
+<?php $this->registerJsFile(Url::base() .'/js/view-modal.js', ['depends' => [\yii\web\JqueryAsset::className()]]); ?>
+<?php Modal::begin([
+    'id' => 'activity-modal',
+    'header' => '<h4 class="modal-title">Просмотр</h4>',
+    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
+
+]); ?>
+
+<div class="well">
+
+</div>
+
+
+<?php Modal::end(); ?>
+
 <?php $this->registerJsFile(Url::base() .'/js/preview.js', ['depends' => [\yii\web\JqueryAsset::className()]]); ?>

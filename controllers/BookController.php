@@ -71,9 +71,10 @@ class BookController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
-	return $this->render('view', [
+	/*return $this->render('view', [
 		    'model' => $this->findModel($id),
-	]);
+	]);*/
+        return $this->renderAjax('view', ['model' => $this->findModel($id)]);
     }
 
     /**
