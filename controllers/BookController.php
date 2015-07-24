@@ -53,7 +53,11 @@ class BookController extends Controller {
             'query' => Book::find()->with('author'),
             'sort' => array(
                 'defaultOrder' => ['date_create' => SORT_DESC],
-            )
+            ),
+            'pagination' => [
+                'pageSize' => 5,
+                'validatePage' => false
+            ]
         ]);
 
         return $this->render('index', [

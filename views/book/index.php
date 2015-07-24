@@ -19,7 +19,7 @@ $this->title = Yii::t('app', 'Книги');
     <p>
         <?= Html::a(Yii::t('app', 'Добавить книгу'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-  <?php  Pjax::begin(); ?>
+  <?php  Pjax::begin(['id'=>'ViewId']); ?>
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
@@ -64,8 +64,7 @@ $this->title = Yii::t('app', 'Книги');
                             'data-toggle' => 'modal',
                             'data-target' => '#activity-modal',
                             'data-id' => $key,
-                            'data-pjax' => 'w0',
-
+                            'data-pjax' => '0'
                         ]);
                     },
                 ],
