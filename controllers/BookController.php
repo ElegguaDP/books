@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Book;
 use app\models\Author;
+use app\models\BookSearch;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -49,11 +50,15 @@ class BookController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
+	$searchModel = new BookSearch();
+        $model = $searchModel->search(Yii::$app->request->queryParams);
+	$authorData = Author::find()->all();
+        $authorsList = [];
+        foreach ($authorData as $author) {
+            $authorsList[$author->id] = $author->firstname . ' ' . $author->lastname;
+        }
         $dataProvider = new ActiveDataProvider([
             'query' => Book::find()->with('author'),
-            'sort' => array(
-                'defaultOrder' => ['date_create' => SORT_DESC],
-            ),
             'pagination' => [
                 'pageSize' => 5,
                 'validatePage' => false
@@ -61,10 +66,28 @@ class BookController extends Controller {
         ]);
 
         return $this->render('index', [
-                    'dataProvider' => $dataProvider
+                    'dataProvider' => $dataProvider,
+		    'searchModel' => $searchModel,
+		    'model' => $model,
+		    'authors' => $authorsList
         ]);
     }
 
+    public function actionSearch() {
+        $searchModel = new BookSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+	$authorData = Author::find()->all();
+        $authorsList = [];
+        foreach ($authorData as $author) {
+            $authorsList[$author->id] = $author->firstname . ' ' . $author->lastname;
+        }
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+	    'authors' => $authorsList
+        ]);
+    }
+    
     /**
      * Displays a single Book model.
      * @param integer $id

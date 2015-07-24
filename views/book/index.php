@@ -5,7 +5,12 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 use yii\bootstrap\Modal;
+use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 
+/* @var $this yii\web\View */
+/* @var $model app\models\BookSearch */
+/* @var $form yii\widgets\ActiveForm */
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -16,6 +21,43 @@ $this->title = Yii::t('app', 'Книги');
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+<div class="book-search">
+
+    <?php $form = ActiveForm::begin([
+        'action' => ['search'],
+        'method' => 'get',
+    ]); ?>
+
+    <?= $form->field($searchModel, 'name') ?>
+    <?= $form->field($searchModel, 'author_id')->dropDownList($authors, ['prompt'=>''])->label(Yii::t('app', 'Автор')) ?>
+    <?= Yii::t('app', 'Дата выхода книги') ?>
+    <?= $form->field($searchModel, 'date_from')->widget(DatePicker::className(), [
+        'language' => 'ru',
+        'dateFormat' => 'yyyy-MM-dd',
+        'clientOptions' => [
+            'changeMonth' => true,
+            'yearRange' => '1900:2099',
+            'changeYear' => true
+        ],
+    ]) ?>
+    <?= $form->field($searchModel, 'date_to')->widget(DatePicker::className(), [
+        'language' => 'ru',
+        'dateFormat' => 'yyyy-MM-dd',
+        'clientOptions' => [
+            'changeMonth' => true,
+            'yearRange' => '1900:2099',
+            'changeYear' => true
+        ],
+    ]) ?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Искать'), ['class' => 'btn btn-primary']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>
+    
     <p>
         <?= Html::a(Yii::t('app', 'Добавить книгу'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
