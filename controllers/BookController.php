@@ -50,6 +50,7 @@ class BookController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
+		echo 'test';
 	$searchModel = new BookSearch();
         $model = $searchModel->search(Yii::$app->request->queryParams);
 	$authorData = Author::find()->all();
